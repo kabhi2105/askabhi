@@ -214,6 +214,38 @@
         <p>© 2025 AskAbhi. Built for smart shopping under budget.</p>
     </footer>
 
+<!-- Simple Success Popup -->
+    <div id="successModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7);
+         align-items:center; justify-content:center; z-index:9999;">
+        <div style="background:white; padding:40px 60px; border-radius:16px; text-align:center;
+             box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+            <h2 style="color:#10b981; margin-bottom:12px;">Success</h2>
+            <p style="font-size:1.2rem; color:#1e293b;">You are registered!</p>
+            <button onclick="document.getElementById('successModal').style.display='none'"
+                    style="margin-top:20px; padding:10px 24px; background:#6366f1; color:white;
+                           border:none; border-radius:8px; cursor:pointer;">OK</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginBtn').onclick = () => {
+            document.getElementById('successModal').style.display = 'flex';
+        };
+        document.getElementById('signupBtn').onclick = () => {
+            document.getElementById('successModal').style.display = 'flex';
+        };
+    </script>
+</body>
+</html>
+Bas itna hi!
+Ab Login ya Sign Up button dabate hi ek clean green “You are registered!” popup aayega aur OK dabane par band ho jayega.
+Deploy kar do — 10 second mein live ho jayega.
+Jab real login system banana ho tab Turnstile wapas laga denge. Abhi ke liye perfect hai!
+
+
+
+
+    
     <!-- Updated Modal with Turnstile -->
     <div class="modal" id="authModal">
         <div class="modal-content">
