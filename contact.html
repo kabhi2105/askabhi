@@ -37,6 +37,29 @@
 
         footer { text-align:center; padding:40px; background:#1e293b; color:white; margin-top:80px; }
     </style>
+    <style>
+    :root { --primary:#6366f1; --text:#1e293b; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Inter',sans-serif; color:var(--text); background:#f8fafc; }
+
+    /* …baaki sab CSS jo pehle tha… */
+
+    /* ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←← */
+    .btn {
+        padding: 6px 14px;
+        border-radius: 8px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-left: 8px;
+    }
+    .btn-outline { border:1.8px solid var(--primary); background:transparent; color:var(--primary); }
+    .btn-outline:hover { background:var(--primary); color:white; }
+    .btn-primary { background:var(--primary); color:white; border:none; }
+    .btn-primary:hover { opacity:0.9; }
+    /* ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←← */
+</style>
 </head>
 <body>
 
