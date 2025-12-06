@@ -3,25 +3,24 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="AskAbhi - Best budget tech recommendations under ₹2000, ₹5000, ₹10000. Honest reviews." />
-    <title>AskAbhi → Budget Buying Buddy</title>
+    <meta name="description" content="About AskAbhi - Honest budget tech reviews without sponsorship bias" />
+    <title>About • AskAbhi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --bg: #ffffff;
-            --gray: #f8fafc;
-        }
+        :root { --primary:#6366f1; --primary-dark:#4f46e5; --text:#1e293b; --light:#64748b; }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Inter',sans-serif; color:var(--text); background:var(--bg); line-height:1.6; }
+        body { font-family:'Inter',sans-serif; color:var(--text); min-height:100vh; position:relative; background:#f8fafc; }
 
-        .hero {
-            background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
-            padding:32px 20px 28px; clip-path:polygon(0 0,100% 0,100% 100%,0 96%);
+        /* Soft watermark background */
+        body::before {
+            content:''; position:absolute; inset:0; z-index:-2;
+            background:url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
+            opacity:0.09;
         }
+        .overlay { position:absolute; inset:0; z-index:-1; background:rgba(255,255,255,0.96); }
+
+        .hero { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
+                padding:32px 20px 28px; clip-path:polygon(0 0 0,100% 0,100% 100%,0 96%); }
         .hero h1 { font-size:2.3rem; font-weight:700; margin-bottom:4px; }
         .hero p { font-size:1.05rem; opacity:0.95; }
 
@@ -31,31 +30,27 @@
         .nav-logo { font-weight:700; font-size:1.35rem; color:var(--primary); }
         .nav-links { display:flex; gap:24px; align-items:center; }
         .nav-links a { text-decoration:none; color:var(--text); font-weight:500; font-size:0.95rem; }
-        .nav-links a:hover { color:var(--primary); }
-        .auth-buttons { display:flex; gap:10px; }
-        .btn { padding:6px 14px; border-radius:6px; font-weight:600; font-size:0.88rem; cursor:pointer; transition:all 0.2s; }
-        .btn-outline { border:1.5px solid var(--primary); background:transparent; color:var(--primary); }
+        .nav-links a:hover, .nav-links a.active { color:var(--primary); font-weight:600; }
+
+        .btn { padding:6px 14px; border-radius:8px; font-weight:600; font-size:0.9rem; cursor:pointer; transition:all 0.2s; margin-left:8px; }
+        .btn-outline { border:1.8px solid var(--primary); background:transparent; color:var(--primary); }
         .btn-outline:hover { background:var(--primary); color:white; }
         .btn-primary { background:var(--primary); color:white; border:none; }
-        .btn-primary:hover { background:var(--primary-dark); }
+        .btn-primary:hover { opacity:0.9; }
 
-        main { max-width:1200px; margin:0 auto; padding:50px 20px 80px; }
-        h2 { font-size:2rem; text-align:center; margin-bottom:40px; }
-        .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:28px; }
-        .card { background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08); transition:all 0.3s; }
-        .card:hover { transform:translateY(-6px); box-shadow:0 12px 30px rgba(0,0,0,0.15); }
-        .card img { width:100%; height:190px; object-fit:cover; }
-        .card-body { padding:18px; }
-        .card h3 { font-size:1.35rem; margin-bottom:8px; }
-        .card p { color:var(--text-light); margin-bottom:14px; font-size:0.95rem; }
-        .card a { color:var(--primary); font-weight:600; text-decoration:none; }
-        .card a:hover { text-decoration:underline; }
+        .about-section { max-width:900px; margin:90px auto 120px; padding:0 20px; text-align:center; }
+        .profile-pic {
+            width:170px; height:170px; border-radius:50%; overflow:hidden; margin:0 auto 35px;
+            border:7px solid white; box-shadow:0 15px 35px rgba(99,102,241,0.3);
+        }
+        .profile-pic img { width:100%; height:100%; object-fit:cover; }
+        .name { font-size:2.6rem; font-weight:700; margin-bottom:10px; }
+        .tagline { font-size:1.35rem; color:var(--light); margin-bottom:35px; }
+        .bio { font-size:1.18rem; line-height:1.9; color:#475569; max-width:720px; margin:0 auto; }
 
-        .about { text-align:center; padding:60px 20px; background:var(--gray); border-radius:14px; margin:70px 0; }
+        footer { text-align:center; padding:45px; background:#1e293b; color:white; }
 
-        footer { text-align:center; padding:35px 20px; background:#1e293b; color:white; font-size:0.9rem; }
-
-        /* Modal */
+        /* Modal & Success Popup – exactly same as index.html */
         .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px);
                   align-items:center; justify-content:center; z-index:9999; }
         .modal-content { background:white; padding:40px; border-radius:16px; width:90%; max-width:420px;
@@ -68,9 +63,7 @@
         .modal button:disabled { background:#94a3b8; cursor:not-allowed; }
         .modal button:enabled { background:var(--primary); color:white; }
         .modal button:enabled:hover { background:var(--primary-dark); }
-        #turnstile-widget { margin:20px 0; text-align:center; }
 
-        /* Success Popup */
         #successModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7);
                        align-items:center; justify-content:center; z-index:9999; }
         #successModal .box { background:white; padding:50px 70px; border-radius:20px; text-align:center;
@@ -78,6 +71,8 @@
     </style>
 </head>
 <body>
+
+    <div class="overlay"></div>
 
     <header class="hero">
         <h1>AskAbhi</h1>
@@ -89,63 +84,37 @@
             <div class="nav-logo">AskAbhi</div>
             <div class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="bluetooth-under-2000.html">Picks</a>
+                <a href="#">Picks</a>
                 <a href="#">Blog</a>
-                <a href="about.html">About</a>
+                <a href="about.html" class="active">About</a>
                 <a href="contact.html">Contact</a>
             </div>
-            <div class="auth-buttons">
+            <div>
                 <button class="btn btn-outline" id="loginBtn">Login</button>
                 <button class="btn btn-primary" id="signupBtn">Sign Up</button>
             </div>
         </div>
     </nav>
 
-    <main>
-        <section class="featured">
-            <h2>Featured Picks</h2>
-            <div class="cards">
-                <div class="card">
-                    <img src="assets/img/speaker.jpg" alt="Best Bluetooth Speaker under 2000">
-                    <div class="card-body">
-                        <h3>Best Bluetooth Speaker Under ₹2000</h3>
-                        <p>Top 5 Bluetooth speakers that offer great sound and value.</p>
-                        <a href="bluetooth-under-2000.html">Read More</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="assets/img/monitor.jpg" alt="Best Monitor under 10000">
-                    <div class="card-body">
-                        <h3>Top Monitors Under ₹10000</h3>
-                        <p>Perfect monitors for work, study, and casual gaming.</p>
-                        <a href="#">Read More</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <img src="assets/img/laptop.jpg" alt="Best Laptop under 40000">
-                    <div class="card-body">
-                        <h3>Best Laptops Under ₹40000</h3>
-                        <p>Power-packed laptops for students and professionals.</p>
-                        <a href="#">Read More</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="about">
-            <h2>About AskAbhi</h2>
-            <p style="font-size:1.1rem;max-width:700px;margin:20px auto;">
-                I’m Abhi, your go-to guy for budget tech picks.<br>
-                I research, test, and recommend only the best products that actually give you value for money — no sponsorship bias.
-            </p>
-        </section>
-    </main>
+    <section class="about-section">
+        <div class="profile-pic">
+            <!-- Beautiful centered "AskAbhi" logo -->
+            <img src="https://readme-typing-svg.herokuapp.com?font=Inter&weight=700&size=44&duration=1&pause=100000&color=6366F1&center=true&vCenter=true&width=200&height=200&lines=AskAbhi" alt="AskAbhi">
+        </div>
+        <h1 class="name">Hi, I’m Abhi!</h1>
+        <p class="tagline">Your no-nonsense budget tech guide</p>
+        <p class="bio">
+            Main 5+ saal se gadgets personally test karta hoon taaki aapko ₹2000 se ₹50,000 tak har budget mein sabse best product mil sake — <strong>bina kisi sponsorship ke</strong>.<br><br>
+            Yahan har recommendation real-world testing ke baad aati hai. Agar koi product bekaar laga toh main seedha bol deta hoon — “mat lo”.<br><br>
+            Mera goal simple hai: Aapka paisa bache aur satisfaction mile.
+        </p>
+    </section>
 
     <footer>
-        <p>© 2025 AskAbhi. Built for smart shopping under budget.</p>
+        <p>© 2025 AskAbhi. Made with love for smart shoppers</p>
     </footer>
 
-    <!-- Turnstile + Login/SignUp Modal -->
+    <!-- Turnstile + Login/SignUp Modal (exact same as index.html) -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close">×</span>
@@ -174,13 +143,12 @@
         </div>
     </div>
 
-    <!-- Turnstile Script
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
         const modal = document.getElementById('authModal');
         const successModal = document.getElementById('successModal');
         const loginBtn = document.getElementById('loginBtn');
-        const signupBtn = document.getElementById('signupBtn');
+        signupBtn = document.getElementById('signupBtn');
         const closeBtn = document.querySelector('.close');
         const modalTitle = document.getElementById('modalTitle');
         const submitBtn = document.getElementById('submitBtn');
