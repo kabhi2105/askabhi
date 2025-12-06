@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact - AskAbhi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+        :root { --primary:#6366f1; --text:#1e293b; }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:'Inter',sans-serif; color:var(--text); background:#f8fafc; }
+
+        /* Same compact header & navbar */
+        .hero { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
+                padding:32px 20px 28px; clip-path:polygon(0 0,100% 0,100% 100%,0 96%); }
+        .hero h1 { font-size:2.3rem; font-weight:700; margin-bottom:4px; }
+        .hero p { font-size:1.05rem; }
+
+        .nav { background:white; box-shadow:0 2px 8px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
+        .nav-container { max-width:1200px; margin:auto; padding:0 20px; display:flex; justify-content:space-between;
+                         align-items:center; height:56px; }
+        .nav-logo { font-weight:700; font-size:1.35rem; color:var(--primary); }
+        .nav-links a { text-decoration:none; color:var(--text); margin:0 12px; font-weight:500; font-size:0.95rem; }
+        .nav-links a:hover, .nav-links a.active { color:var(--primary); font-weight:600; }
+
+        .container { max-width:800px; margin:60px auto; padding:0 20px; text-align:center; }
+        h2 { font-size:2.5rem; margin-bottom:20px; color:var(--text); }
+        p.lead { font-size:1.2rem; color:#64748b; margin-bottom:40px; }
+
+        .contact-box {
+            background:white; padding:50px; border-radius:16px;
+            box-shadow:0 10px 30px rgba(0,0,0,0.08); margin:40px 0;
+        }
+        .contact-box h3 { font-size:1.6rem; margin-bottom:15px; }
+        .contact-box p { font-size:1.1rem; color:#475569; margin:10px 0; }
+        .contact-box a { color:var(--primary); text-decoration:none; font-weight:600; }
+
+        footer { text-align:center; padding:40px; background:#1e293b; color:white; margin-top:80px; }
+    </style>
+</head>
+<body>
+
+    <header class="hero">
+        <h1>AskAbhi</h1>
+        <p>Your Budget Buying Buddy</p>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="nav-logo">AskAbhi</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="#">Picks</a>
+                <a href="#">Blog</a>
+                <a href="#">About</a>
+                <a href="contact.html" class="active">Contact</a>
+            </div>
+            <div>
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h2>Get in Touch</h2>
+        <p class="lead">Have a question, suggestion, or just want to say hi? I'm all ears!</p>
+
+        <div class="contact-box">
+            <h3>Email Me</h3>
+            <p><a href="mailto:hello@anc.xyz">hello@anc.xyz</a></p>
+
+            <h3 style="margin-top:40px;">Follow Me</h3>
+            <p>
+                Twitter → <a href="https://twitter.com/yourhandle" target="_blank">@yourhandle</a><br>
+                Instagram → <a href="https://instagram.com/yourhandle" target="_blank">@yourhandle</a>
+            </p>
+
+            <p style="margin-top:40px; color:#64748b;">
+                I usually reply within 24–48 hours
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2025 AskAbhi. Made with love for budget shoppers</p>
+    </footer>
+
+    <!-- Same simple success popup -->
+    <div id="successModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);
+         align-items:center;justify-content:center;z-index:9999;">
+        <div style="background:white;padding:40px 60px;border-radius:16px;text-align:center;
+             box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+            <h2 style="color:#10b981;margin-bottom:12px;">Success</h2>
+            <p style="font-size:1.2rem;">You are registered!</p>
+            <button onclick="this.parentElement.parentElement.style.display='none'"
+                    style="margin-top:20px;padding:10px 24px;background:#6366f1;color:white;
+                           border:none;border-radius:8px;cursor:pointer;">OK</button>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('loginBtn').onclick =
+        document.getElementById('signupBtn').onclick = () => {
+            document.getElementById('successModal').style.display = 'flex';
+        };
+    </script>
+</body>
+</html>
