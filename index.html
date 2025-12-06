@@ -1,54 +1,360 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AskAbhi - Your Budget Buying Buddy</title>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="AskAbhi - Best budget tech recommendations under ₹2000, ₹5000, ₹10000. Honest reviews, no sponsorship bias." />
+    <title>AskAbhi → Your Budget Buying Buddy</title>
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --gray: #f8fafc;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        /* Header */
+        .hero {
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            text-align: center;
+            padding: 100px 20px 80px;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+        }
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .hero p {
+            font-size: 1.4rem;
+            opacity: 0.95;
+        }
+
+        /* Navbar */
+        .nav {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 70px;
+        }
+        .nav-logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            align-items: center;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--primary); }
+
+        /* Login/Signup Buttons */
+        .auth-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        .btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn-outline {
+            border: 2px solid var(--primary);
+            background: transparent;
+            color: var(--primary);
+        }
+        .btn-outline:hover {
+            background: var(--primary);
+            color: white;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+        }
+        .btn-primary:hover { background: var(--primary-dark); }
+
+        /* Main Content */
+        main { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
+        h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--text);
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        .card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+        }
+        .card p {
+            color: var(--text-light);
+            margin-bottom: 16px;
+        }
+        .card a {
+            color: var(--primary);
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .card a:hover { text-decoration: underline; }
+
+        .about {
+            text-align: center;
+            padding: 80px 20px;
+            background: var(--gray);
+            border-radius: 16px;
+            margin: 80px 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background: #1e293b;
+            color: white;
+            font-size: 0.95rem;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(8px);
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+        .modal-content {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            width: 90%;
+            max-width: 420px;
+            position: relative;
+            animation: slideDown 0.4s ease;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #aaa;
+        }
+        .close:hover { color: #000; }
+        .modal h3 { margin-bottom: 20px; text-align: center; }
+        .modal input, .modal button {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .modal button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .modal button:hover { background: var(--primary-dark); }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            .nav-links { display: none; } /* simple mobile menu can be added later */
+            .auth-buttons { flex-direction: column; }
+        }
+    </style>
 </head>
 <body>
+
+    <!-- Hero Header -->
     <header class="hero">
         <h1>AskAbhi</h1>
         <p>Your Budget Buying Buddy</p>
     </header>
+
+    <!-- Navigation -->
     <nav class="nav">
-        <a href="index.html">Home</a>
-        <a href="bluetooth-under-2000.html">Picks</a>
-        <a href="#">Blog</a>
-        <a href="#">About</a>
-        <a href="#">Contact</a>
+        <div class="nav-container">
+            <div class="nav-logo">AskAbhi</div>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="bluetooth-under-2000.html">Picks</a>
+                <a href="#">Blog</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="auth-buttons">
+                <button class="btn btn-outline" id="loginBtn">Login</button>
+                <button class="btn btn-primary" id="signupBtn">Sign Up</button>
+            </div>
+        </div>
     </nav>
+
+    <!-- Main Content -->
     <main>
         <section class="featured">
             <h2>Featured Picks</h2>
             <div class="cards">
                 <div class="card">
-                    <img src="assets/img/speaker.jpg" alt="Bluetooth Speaker">
-                    <h3>Best Bluetooth Speaker Under ₹2000</h3>
-                    <p>Top 5 Bluetooth speakers that offer great sound and value.</p>
-                    <a href="bluetooth-under-2000.html">Read More</a>
+                    <img src="assets/img/speaker.jpg" alt="Best Bluetooth Speaker under 2000">
+                    <div class="card-body">
+                        <h3>Best Bluetooth Speaker Under ₹2000</h3>
+                        <p>Top 5 Bluetooth speakers that offer great sound and value.</p>
+                        <a href="bluetooth-under-2000.html">Read More →</a>
+                    </div>
                 </div>
                 <div class="card">
-                    <img src="assets/img/monitor.jpg" alt="Monitor">
-                    <h3>Top Monitors Under ₹10000</h3>
-                    <p>Perfect monitors for work, study, and casual gaming.</p>
-                    <a href="#">Read More</a>
+                    <img src="assets/img/monitor.jpg" alt="Best Monitor under 10000">
+                    <div class="card-body">
+                        <h3>Top Monitors Under ₹10000</h3>
+                        <p>Perfect monitors for work, study, and casual gaming.</p>
+                        <a href="#">Read More →</a>
+                    </div>
                 </div>
                 <div class="card">
-                    <img src="assets/img/laptop.jpg" alt="Laptop">
-                    <h3>Best Laptops Under ₹40000</h3>
-                    <p>Power-packed laptops for students and professionals.</p>
-                    <a href="#">Read More</a>
+                    <img src="assets/img/laptop.jpg" alt="Best Laptop under 40000">
+                    <div class="card-body">
+                        <h3>Best Laptops Under ₹40000</h3>
+                        <p>Power-packed laptops for students and professionals.</p>
+                        <a href="#">Read More →</a>
+                    </div>
                 </div>
             </div>
         </section>
+
         <section class="about">
             <h2>About AskAbhi</h2>
-            <p>I’m Abhi, your go-to guy for budget tech picks. I research, test, and recommend the best products that are worth your money.</p>
+            <p style="font-size:1.1rem;max-width:700px;margin:20px auto;">
+                I’m Abhi, your go-to guy for budget tech picks.<br>
+                I research, test, and recommend only the best products that actually give you value for money — no sponsorship bias.
+            </p>
         </section>
     </main>
+
     <footer>
         <p>© 2025 AskAbhi. Built for smart shopping under budget.</p>
     </footer>
+
+    <!-- Login / Sign Up Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h3 id="modalTitle">Login</h3>
+            <form id="authForm">
+                <input type="email" placeholder="Email address" required />
+                <input type="password" placeholder="Password" required />
+                <button type="submit" id="submitBtn">Login</button>
+            </form>
+            <p style="text-align:center;margin-top:15px;font-size:0.9rem;">
+                <span id="toggleText">Don't have an account? <a href="#" id="toggleLink">Sign Up</a></span>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const modal = document.getElementById('authModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const close = document.querySelector('.close');
+        const modalTitle = document.getElementById('modalTitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const toggleLink = document.getElementById('toggleLink');
+        const toggleText = document.getElementById('toggleText');
+
+        let isLogin = true;
+
+        loginBtn.onclick = () => { modal.style.display = 'flex'; isLogin = true; updateModal(); }
+        signupBtn.onclick = () => { modal.style.display = 'flex'; isLogin = false; updateModal(); }
+        close.onclick = () => modal.style.display = 'none';
+        window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; }
+
+        function updateModal() {
+            if (isLogin) {
+                modalTitle.textContent = 'Login';
+                submitBtn.textContent = 'Login';
+                toggleText.innerHTML = `Don't have an account? <a href="#" id="toggleLink">Sign Up</a>`;
+            } else {
+                modalTitle.textContent = 'Sign Up';
+                submitBtn.textContent = 'Create Account';
+                toggleText.innerHTML = `Already have an account? <a href="#" id="toggleLink">Login</a>`;
+            }
+            document.getElementById('toggleLink').onclick = (e) => {
+                e.preventDefault();
+                isLogin = !isLogin;
+                updateModal();
+            };
+        }
+
+        // Form submit (demo only)
+        document.getElementById('authForm').onsubmit = (e) => {
+            e.preventDefault();
+            alert((isLogin ? 'Logged in' : 'Signed up') + ' successfully!');
+            modal.style.display = 'none';
+        };
+    </script>
 </body>
 </html>
