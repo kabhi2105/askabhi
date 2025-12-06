@@ -3,72 +3,81 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>About - AskAbhi</title>
+    <meta name="description" content="AskAbhi - Best budget tech recommendations under ₹2000, ₹5000, ₹10000. Honest reviews." />
+    <title>AskAbhi → Budget Buying Buddy</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
-        :root { --primary:#6366f1; --text:#1e293b; --light:#64748b; }
+        :root {
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --bg: #ffffff;
+            --gray: #f8fafc;
+        }
         * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Inter',sans-serif; color:var(--text); min-height:100vh; position:relative; }
+        body { font-family:'Inter',sans-serif; color:var(--text); background:var(--bg); line-height:1.6; }
 
-        /* Watermark Background */
-        body::before {
-            content:'';
-            position:absolute; inset:0; z-index:-2;
-            background: url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
-            opacity:0.12;
+        .hero {
+            background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
+            padding:32px 20px 28px; clip-path:polygon(0 0,100% 0,100% 100%,0 96%);
         }
-        .overlay {
-            position:absolute; inset:0; z-index:-1;
-            background:linear-gradient(135deg, rgba(255,255,255,0.96), rgba(248,250,252,0.98));
-        }
-
-        /* Same compact header */
-        .hero { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
-                padding:32px 20px 28px; clip-path:polygon(0 0,100% 0,100% 100%,0 96%); }
         .hero h1 { font-size:2.3rem; font-weight:700; margin-bottom:4px; }
-        .hero p { font-size:1.05rem; }
+        .hero p { font-size:1.05rem; opacity:0.95; }
 
         .nav { background:white; box-shadow:0 2px 8px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
         .nav-container { max-width:1200px; margin:auto; padding:0 20px; display:flex; justify-content:space-between;
                          align-items:center; height:56px; }
         .nav-logo { font-weight:700; font-size:1.35rem; color:var(--primary); }
-        .nav-links a { text-decoration:none; color:var(--text); margin:0 12px; font-weight:500; font-size:0.95rem; }
-        .nav-links a:hover, .nav-links a.active { color:var(--primary); font-weight:600; }
-
-        /* Buttons – same as other pages */
-        .btn {
-            padding:6px 14px; border-radius:8px; font-weight:600; font-size:0.9rem;
-            cursor:pointer; transition:all 0.2s; margin-left:8px;
-        }
-        .btn-outline { border:1.8px solid var(--primary); background:transparent; color:var(--primary); }
+        .nav-links { display:flex; gap:24px; align-items:center; }
+        .nav-links a { text-decoration:none; color:var(--text); font-weight:500; font-size:0.95rem; }
+        .nav-links a:hover { color:var(--primary); }
+        .auth-buttons { display:flex; gap:10px; }
+        .btn { padding:6px 14px; border-radius:6px; font-weight:600; font-size:0.88rem; cursor:pointer; transition:all 0.2s; }
+        .btn-outline { border:1.5px solid var(--primary); background:transparent; color:var(--primary); }
         .btn-outline:hover { background:var(--primary); color:white; }
         .btn-primary { background:var(--primary); color:white; border:none; }
-        .btn-primary:hover { opacity:0.9; }
+        .btn-primary:hover { background:var(--primary-dark); }
 
-        /* About Content */
-        .about-section {
-            max-width:900px; margin:80px auto; padding:0 20px; text-align:center;
-        }
-        .profile-pic {
-            width:160px; height:160px; border-radius:50%; overflow:hidden; margin:0 auto 30px;
-            border:6px solid white; box-shadow:0 10px 30px rgba(99,102,241,0.25);
-        }
-        .profile-pic img { width:100%; height:100%; object-fit:cover; }
-        .name { font-size:2.4rem; font-weight:700; margin-bottom:12px; }
-        .tagline { font-size:1.3rem; color:var(--light); margin-bottom:30px; }
-        .bio { font-size:1.15rem; line-height:1.8; color:#475569; max-width:700px; margin:0 auto 40px; }
+        main { max-width:1200px; margin:0 auto; padding:50px 20px 80px; }
+        h2 { font-size:2rem; text-align:center; margin-bottom:40px; }
+        .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:28px; }
+        .card { background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08); transition:all 0.3s; }
+        .card:hover { transform:translateY(-6px); box-shadow:0 12px 30px rgba(0,0,0,0.15); }
+        .card img { width:100%; height:190px; object-fit:cover; }
+        .card-body { padding:18px; }
+        .card h3 { font-size:1.35rem; margin-bottom:8px; }
+        .card p { color:var(--text-light); margin-bottom:14px; font-size:0.95rem; }
+        .card a { color:var(--primary); font-weight:600; text-decoration:none; }
+        .card a:hover { text-decoration:underline; }
 
-        footer { text-align:center; padding:40px; background:#1e293b; color:white; margin-top:100px; }
+        .about { text-align:center; padding:60px 20px; background:var(--gray); border-radius:14px; margin:70px 0; }
 
-        /* Success popup */
+        footer { text-align:center; padding:35px 20px; background:#1e293b; color:white; font-size:0.9rem; }
+
+        /* Modal */
+        .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px);
+                  align-items:center; justify-content:center; z-index:9999; }
+        .modal-content { background:white; padding:40px; border-radius:16px; width:90%; max-width:420px;
+                         position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.2); }
+        .close { position:absolute; top:15px; right:20px; font-size:28px; cursor:pointer; color:#999; }
+        .close:hover { color:#000; }
+        .modal h3 { text-align:center; margin-bottom:20px; color:var(--text); }
+        .modal input { width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ddd; font-size:1rem; }
+        .modal button { width:100%; padding:13px; margin:15px 0 10px; border-radius:8px; border:none; font-weight:600; cursor:pointer; }
+        .modal button:disabled { background:#94a3b8; cursor:not-allowed; }
+        .modal button:enabled { background:var(--primary); color:white; }
+        .modal button:enabled:hover { background:var(--primary-dark); }
+        #turnstile-widget { margin:20px 0; text-align:center; }
+
+        /* Success Popup */
         #successModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7);
-                        align-items:center; justify-content:center; z-index:9999; }
-        #successModal .box { background:white; padding:50px 70px; border-radius:16px; text-align:center; }
+                       align-items:center; justify-content:center; z-index:9999; }
+        #successModal .box { background:white; padding:50px 70px; border-radius:20px; text-align:center;
+                             box-shadow:0 20px 40px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
-
-    <div class="overlay"></div>
 
     <header class="hero">
         <h1>AskAbhi</h1>
@@ -80,51 +89,130 @@
             <div class="nav-logo">AskAbhi</div>
             <div class="nav-links">
                 <a href="index.html">Home</a>
-                <a href="#">Picks</a>
+                <a href="bluetooth-under-2000.html">Picks</a>
                 <a href="#">Blog</a>
-                <a href="about.html" class="active">About</a>
+                <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
             </div>
-            <div>
+            <div class="auth-buttons">
                 <button class="btn btn-outline" id="loginBtn">Login</button>
                 <button class="btn btn-primary" id="signupBtn">Sign Up</button>
             </div>
         </div>
     </nav>
 
-    <section class="about-section">
-        <div class="profile-pic">
-            <!-- Sample logo / profile pic -->
-            <div class="profile-pic">
-    <img src="https://readme-typing-svg.herokuapp.com?font=Inter&weight=700&size=42&color=6366F1&background=FFFFFF00&center=true&vCenter=true&width=200&height=200&lines=AskAbhi" alt="AskAbhi">
-</div>
-        </div>
-        <h1 class="name">Hi, I’m Abhi!</h1>
-        <p class="tagline">Your no-nonsense budget tech guide</p>
-        <p class="bio">
-            Main 5+ saal se gadgets test aur compare kar raha hoon taaki aapko ₹2000 se ₹50,000 tak har budget mein sabse best product mil sake — bina kisi sponsorship bias ke.<br><br>
-            Yahan har recommendation personally test kiya hua hota hai. Agar koi product acha nahi laga toh main seedha bol deta hoon — “mat lo”.<br><br>
-            Goal simple hai: Aapka paisa bache aur satisfaction mile.
-        </p>
-    </section>
+    <main>
+        <section class="featured">
+            <h2>Featured Picks</h2>
+            <div class="cards">
+                <div class="card">
+                    <img src="assets/img/speaker.jpg" alt="Best Bluetooth Speaker under 2000">
+                    <div class="card-body">
+                        <h3>Best Bluetooth Speaker Under ₹2000</h3>
+                        <p>Top 5 Bluetooth speakers that offer great sound and value.</p>
+                        <a href="bluetooth-under-2000.html">Read More</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="assets/img/monitor.jpg" alt="Best Monitor under 10000">
+                    <div class="card-body">
+                        <h3>Top Monitors Under ₹10000</h3>
+                        <p>Perfect monitors for work, study, and casual gaming.</p>
+                        <a href="#">Read More</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <img src="assets/img/laptop.jpg" alt="Best Laptop under 40000">
+                    <div class="card-body">
+                        <h3>Best Laptops Under ₹40000</h3>
+                        <p>Power-packed laptops for students and professionals.</p>
+                        <a href="#">Read More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="about">
+            <h2>About AskAbhi</h2>
+            <p style="font-size:1.1rem;max-width:700px;margin:20px auto;">
+                I’m Abhi, your go-to guy for budget tech picks.<br>
+                I research, test, and recommend only the best products that actually give you value for money — no sponsorship bias.
+            </p>
+        </section>
+    </main>
 
     <footer>
-        <p>© 2025 AskAbhi. Made with ❤️ for smart shoppers</p>
+        <p>© 2025 AskAbhi. Built for smart shopping under budget.</p>
     </footer>
 
-    <!-- Simple success popup -->
-    <div id="successModal">
-        <div class="box">
-            <h2 style="color:#10b981;">Success!</h2>
-            <p style="font-size:1.2rem;margin:20px 0;">You are registered!</p>
-            <button class="btn btn-primary" onclick="this.parentElement.parentElement.style.display='none'">OK</button>
+    <!-- Turnstile + Login/SignUp Modal -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h3 id="modalTitle">Login</h3>
+            <form id="authForm">
+                <input type="email" placeholder="Email address" required />
+                <input type="password" placeholder="Password" required />
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAACFGEjLcBikLF231" data-callback="onTurnstileSuccess"></div>
+                <button type="submit" id="submitBtn" disabled>Login</button>
+            </form>
+            <p style="text-align:center;margin-top:20px;font-size:0.95rem;">
+                <span id="toggleText">Don't have an account? <a href="#" id="toggleLink" style="color:var(--primary);font-weight:600;">Sign Up</a></span>
+            </p>
         </div>
     </div>
 
+    <!-- Success Popup -->
+    <div id="successModal">
+        <div class="box">
+            <h2 style="color:#10b981;margin-bottom:15px;">Success!</h2>
+            <p style="font-size:1.3rem;margin:20px 0;">You are registered!</p>
+            <button onclick="document.getElementById('successModal').style.display='none'"
+                style="padding:12px 32px;background:var(--primary);color:white;border:none;border-radius:10px;cursor:pointer;font-weight:600;">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <!-- Turnstile Script
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
-        document.getElementById('loginBtn').onclick =
-        document.getElementById('signupBtn').onclick = () => {
-            document.getElementById('successModal').style.display = 'flex';
+        const modal = document.getElementById('authModal');
+        const successModal = document.getElementById('successModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const closeBtn = document.querySelector('.close');
+        const modalTitle = document.getElementById('modalTitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const toggleText = document.getElementById('toggleText');
+        let isLogin = true;
+
+        loginBtn.onclick = () => openModal(true);
+        signupBtn.onclick = () => openModal(false);
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+
+        function openModal(login) {
+            isLogin = login;
+            modal.style.display = 'flex';
+            modalTitle.textContent = isLogin ? 'Login' : 'Sign Up';
+            submitBtn.textContent = isLogin ? 'Login' : 'Create Account';
+            toggleText.innerHTML = isLogin
+                ? `Don't have an account? <a href="#" id="toggleLink">Sign Up</a>`
+                : `Already have an account? <a href="#" id="toggleLink">Login</a>`;
+            document.getElementById('toggleLink').onclick = e => { e.preventDefault(); openModal(!isLogin); };
+            if (window.turnstile) turnstile.reset();
+            submitBtn.disabled = true;
+        }
+
+        function onTurnstileSuccess() {
+            submitBtn.disabled = false;
+        }
+
+        document.getElementById('authForm').onsubmit = e => {
+            e.preventDefault();
+            modal.style.display = 'none';
+            successModal.style.display = 'flex';
         };
     </script>
 </body>
