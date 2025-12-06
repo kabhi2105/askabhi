@@ -3,33 +3,23 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="About AskAbhi - Honest budget tech reviews without sponsorship bias" />
     <title>About • AskAbhi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
         :root { --primary:#6366f1; --primary-dark:#4f46e5; --text:#1e293b; --light:#64748b; }
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Inter',sans-serif; color:var(--text); min-height:100vh; position:relative; background:#f8fafc; }
-
-        /* Soft watermark background */
-        body::before {
-            content:''; position:absolute; inset:0; z-index:-2;
-            background:url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat;
-            opacity:0.09;
-        }
+        body::before { content:''; position:absolute; inset:0; z-index:-2; background:url('https://images.unsplash.com/photo-1614064641938-3bbee52942c7?q=80&w=2000&auto=format&fit=crop') center/cover no-repeat; opacity:0.09; }
         .overlay { position:absolute; inset:0; z-index:-1; background:rgba(255,255,255,0.96); }
 
-        .hero { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
-                padding:32px 20px 28px; clip-path:polygon(0 0 0,100% 0,100% 100%,0 96%); }
+        .hero { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center; padding:32px 20px 28px; clip-path:polygon(0 0,100% 0,100% 100%,0 96%); }
         .hero h1 { font-size:2.3rem; font-weight:700; margin-bottom:4px; }
-        .hero p { font-size:1.05rem; opacity:0.95; }
+        .hero p { font-size:1.05rem; }
 
         .nav { background:white; box-shadow:0 2px 8px rgba(0,0,0,0.1); position:sticky; top:0; z-index:1000; }
-        .nav-container { max-width:1200px; margin:auto; padding:0 20px; display:flex; justify-content:space-between;
-                         align-items:center; height:56px; }
+        .nav-container { max-width:1200px; margin:auto; padding:0 20px; display:flex; justify-content:space-between; align-items:center; height:56px; }
         .nav-logo { font-weight:700; font-size:1.35rem; color:var(--primary); }
-        .nav-links { display:flex; gap:24px; align-items:center; }
-        .nav-links a { text-decoration:none; color:var(--text); font-weight:500; font-size:0.95rem; }
+        .nav-links a { text-decoration:none; color:var(--text); margin:0 12px; font-weight:500; font-size:0.95rem; }
         .nav-links a:hover, .nav-links a.active { color:var(--primary); font-weight:600; }
 
         .btn { padding:6px 14px; border-radius:8px; font-weight:600; font-size:0.9rem; cursor:pointer; transition:all 0.2s; margin-left:8px; }
@@ -39,10 +29,7 @@
         .btn-primary:hover { opacity:0.9; }
 
         .about-section { max-width:900px; margin:90px auto 120px; padding:0 20px; text-align:center; }
-        .profile-pic {
-            width:170px; height:170px; border-radius:50%; overflow:hidden; margin:0 auto 35px;
-            border:7px solid white; box-shadow:0 15px 35px rgba(99,102,241,0.3);
-        }
+        .profile-pic { width:170px; height:170px; border-radius:50%; overflow:hidden; margin:0 auto 35px; border:7px solid white; box-shadow:0 15px 35px rgba(99,102,241,0.3); }
         .profile-pic img { width:100%; height:100%; object-fit:cover; }
         .name { font-size:2.6rem; font-weight:700; margin-bottom:10px; }
         .tagline { font-size:1.35rem; color:var(--light); margin-bottom:35px; }
@@ -50,28 +37,20 @@
 
         footer { text-align:center; padding:45px; background:#1e293b; color:white; }
 
-        /* Modal & Success Popup – exactly same as index.html */
-        .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px);
-                  align-items:center; justify-content:center; z-index:9999; }
-        .modal-content { background:white; padding:40px; border-radius:16px; width:90%; max-width:420px;
-                         position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.2); }
+        .modal, #successModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); align-items:center; justify-content:center; z-index:9999; }
+        .modal-content { background:white; padding:40px; border-radius:16px; width:90%; max-width:420px; position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.2); }
         .close { position:absolute; top:15px; right:20px; font-size:28px; cursor:pointer; color:#999; }
         .close:hover { color:#000; }
-        .modal h3 { text-align:center; margin-bottom:20px; color:var(--text); }
         .modal input { width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ddd; font-size:1rem; }
         .modal button { width:100%; padding:13px; margin:15px 0 10px; border-radius:8px; border:none; font-weight:600; cursor:pointer; }
         .modal button:disabled { background:#94a3b8; cursor:not-allowed; }
         .modal button:enabled { background:var(--primary); color:white; }
         .modal button:enabled:hover { background:var(--primary-dark); }
 
-        #successModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7);
-                       align-items:center; justify-content:center; z-index:9999; }
-        #successModal .box { background:white; padding:50px 70px; border-radius:20px; text-align:center;
-                             box-shadow:0 20px 40px rgba(0,0,0,0.2); }
+        #successModal .box { background:white; padding:50px 70px; border-radius:20px; text-align:center; box-shadow:0 20px 40px rgba(0,0,0,0.2); }
     </style>
 </head>
 <body>
-
     <div class="overlay"></div>
 
     <header class="hero">
@@ -98,7 +77,6 @@
 
     <section class="about-section">
         <div class="profile-pic">
-            <!-- Beautiful centered "AskAbhi" logo -->
             <img src="https://readme-typing-svg.herokuapp.com?font=Inter&weight=700&size=44&duration=1&pause=100000&color=6366F1&center=true&vCenter=true&width=200&height=200&lines=AskAbhi" alt="AskAbhi">
         </div>
         <h1 class="name">Hi, I’m Abhi!</h1>
@@ -114,7 +92,7 @@
         <p>© 2025 AskAbhi. Made with love for smart shoppers</p>
     </footer>
 
-    <!-- Turnstile + Login/SignUp Modal (exact same as index.html) -->
+    <!-- Same Modal + Success Popup -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close">×</span>
@@ -131,11 +109,10 @@
         </div>
     </div>
 
-    <!-- Success Popup -->
     <div id="successModal">
         <div class="box">
             <h2 style="color:#10b981;margin-bottom:15px;">Success!</h2>
-            <p style="font-size:1.3rem;margin:20px 0;">You are registered!</p>
+            <p style="font-size:1.3rem;margin:20px 0;font-weight:600;" id="successText">You are registered!</p>
             <button onclick="document.getElementById('successModal').style.display='none'"
                 style="padding:12px 32px;background:var(--primary);color:white;border:none;border-radius:10px;cursor:pointer;font-weight:600;">
                 OK
@@ -148,11 +125,11 @@
         const modal = document.getElementById('authModal');
         const successModal = document.getElementById('successModal');
         const loginBtn = document.getElementById('loginBtn');
-        signupBtn = document.getElementById('signupBtn');
+        const signupBtn = document.getElementById('signupBtn');
         const closeBtn = document.querySelector('.close');
         const modalTitle = document.getElementById('modalTitle');
         const submitBtn = document.getElementById('submitBtn');
-        const toggleText = document.getElementById('toggleText');
+        const successText = document.getElementById('successText');
         let isLogin = true;
 
         loginBtn.onclick = () => openModal(true);
@@ -165,7 +142,7 @@
             modal.style.display = 'flex';
             modalTitle.textContent = isLogin ? 'Login' : 'Sign Up';
             submitBtn.textContent = isLogin ? 'Login' : 'Create Account';
-            toggleText.innerHTML = isLogin
+            document.getElementById('toggleText').innerHTML = isLogin
                 ? `Don't have an account? <a href="#" id="toggleLink">Sign Up</a>`
                 : `Already have an account? <a href="#" id="toggleLink">Login</a>`;
             document.getElementById('toggleLink').onclick = e => { e.preventDefault(); openModal(!isLogin); };
@@ -179,6 +156,7 @@
 
         document.getElementById('authForm').onsubmit = e => {
             e.preventDefault();
+            successText.textContent = isLogin ? 'Successfully logged in!' : 'Registration successful!';
             modal.style.display = 'none';
             successModal.style.display = 'flex';
         };
