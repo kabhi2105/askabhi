@@ -230,84 +230,68 @@
             </p>
         </div>
     </div>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-    <!-- Turnstile Script (add this before closing body) -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script>
+    const modal = document.getElementById('authModal');
+    const loginBtn = document.getElementById('loginBtn');
+    const signupBtn = document.getElementById('signupBtn');
+    const close = document.querySelector('.close');
+    const modalTitle = document.getElementById('modalTitle');
+    const submitBtn = document.getElementById('submitBtn');
+    const toggleText = document.getElementById('toggleText');
 
-    <script>
-        const modal = document.getElementById('authModal');
-        const loginBtn = document.getElementById('loginBtn');
-        const signupBtn = document.getElementById('signupBtn');
-        const close = document.querySelector('.close');
-        const modalTitle = document.getElementById('modalTitle');
-        const submitBtn = document.getElementById('submitBtn');
-        const toggleText = document.getElementById('toggleText');
+    let isLogin = true;
 
-        let isLogin = true;
-        let turnstileToken = null;
+    loginBtn.onclick = () => openModal(true);
+    signupBtn.onclick = () => openModal(false);
+    close.onclick = () => modal.style.display = 'none';
+    window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
 
-        // Turnstile Callback (widget load hone par token capture karo)
-        function turnstileCallback(token) {
-            turnstileToken = token;
-            submitBtn.disabled = false; // Button enable kar do
+    function openModal(login) {
+        isLogin = login;
+        modal.style.display = 'flex';
+        modalTitle.textContent = isLogin ? 'Login' : 'Sign Up';
+        submitBtn.textContent = isLogin ? 'Login' : 'Create Account';
+        toggleText.innerHTML = isLogin 
+            ? `Don't have an account? <a href="#" id="toggleLink">Sign Up</a>`
+            : `Already have an account? <a href="#" id="toggleLink">Login</a>`;
+        document.getElementById('toggleLink').onclick = e => { e.preventDefault(); openModal(!isLogin); };
+
+        // Reset Turnstile every time modal opens
+        if (window.turnstile) turnstile.reset();
+    }
+
+    // Form submit → Cloudflare ke apne endpoint se verify karo (no backend needed)
+    document.getElementById('authForm').onsubmit = async function(e) {
+        e.preventDefault();
+
+        const token = turnstile.getResponse();   // ← yeh token le lo
+
+        if (!token) {
+            alert('Please complete the security check');
+            return;
         }
 
-        loginBtn.onclick = () => { modal.style.display = 'flex'; isLogin = true; updateModal(); }
-        signupBtn.onclick = () => { modal.style.display = 'flex'; isLogin = false; updateModal(); }
-        close.onclick = () => modal.style.display = 'none';
-        window.onclick = (e) => { if (e.target === modal) modal.style.display = 'none'; }
+        // Cloudflare ke official verification endpoint par bhejo
+        const verify = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: `secret=YOUR_SECRET_KEY_HERE&response=${token}`   // ← YAHAN APNA SECRET KEY DAAL DO
+        });
 
-        function updateModal() {
-            modalTitle.textContent = isLogin ? 'Login' : 'Sign Up';
-            submitBtn.textContent = isLogin ? 'Login' : 'Create Account';
-            toggleText.innerHTML = isLogin 
-                ? `Don't have an account? <a href="#" id="toggleLink">Sign Up</a>`
-                : `Already have an account? <a href="#" id="toggleLink">Login</a>`;
-            document.getElementById('toggleLink').onclick = (e) => {
-                e.preventDefault();
-                isLogin = !isLogin;
-                updateModal();
-            };
-            // Turnstile reset kar do toggle par
-            if (window.turnstile) {
-                window.turnstile.reset();
-            }
-            turnstileToken = null;
-            submitBtn.disabled = true; // Pehle disable
+        const result = await verify.json();
+
+        if (result.success) {
+            alert(isLogin ? 'Login successful!' : 'Sign up successful!');
+            modal.style.display = 'none';
+            // Yahan real login/signup ka code daal sakte ho baad mein
+        } else {
+            alert('Verification failed. Please try again.');
+            turnstile.reset();
         }
-
-        document.getElementById('authForm').onsubmit = async (e) => {
-            e.preventDefault();
-            if (!turnstileToken) {
-                alert('Please complete the Turnstile challenge!');
-                return;
-            }
-
-            // Server-side verify (demo – yahaan backend call karo)
-            const formData = new FormData(e.target);
-            formData.append('cf-turnstile-response', turnstileToken);
-
-            try {
-                // Example fetch to your backend (replace with actual endpoint)
-                const response = await fetch('/api/verify-turnstile', { // Yeh backend endpoint bana lo
-                    method: 'POST',
-                    body: formData
-                });
-                const result = await response.json();
-
-                if (result.success) {
-                    alert((isLogin ? 'Logged in' : 'Signed up') + ' successfully!');
-                    modal.style.display = 'none';
-                } else {
-                    alert('Verification failed! Try again.');
-                    window.turnstile.reset(); // Reset widget
-                    turnstileToken = null;
-                }
-            } catch (error) {
-                console.error('Error:', error);
-                alert('Something went wrong!');
-            }
-        };
-    </script>
+    };
+</script>
+   
 </body>
 </html>
