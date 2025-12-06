@@ -2,17 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Contact - AskAbhi</title>
+    <title>Contact • AskAbhi</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
-        :root { --primary:#6366f1; --text:#1e293b; }
+        :root { --primary:#6366f1; --primary-dark:#4f46e5; --text:#1e293b; --light:#64748b; }
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Inter',sans-serif; color:var(--text); background:#f8fafc; }
 
-        /* Same compact header & navbar */
-        .hero { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
-                padding:32px 20px 28px; clip-path:polygon(0 0,100% 0,100% 100%,0 96%); }
+        .hero {
+            background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
+            padding:32px 20px 28px; clip-path:polygon(0 0,100% 0,100% 100%,0 96%);
+        }
         .hero h1 { font-size:2.3rem; font-weight:700; margin-bottom:4px; }
         .hero p { font-size:1.05rem; }
 
@@ -20,46 +22,50 @@
         .nav-container { max-width:1200px; margin:auto; padding:0 20px; display:flex; justify-content:space-between;
                          align-items:center; height:56px; }
         .nav-logo { font-weight:700; font-size:1.35rem; color:var(--primary); }
-        .nav-links a { text-decoration:none; color:var(--text); margin:0 12px; font-weight:500; font-size:0.95rem; }
+        .nav-links { display:flex; gap:24px; align-items:center; }
+        .nav-links a { text-decoration:none; color:var(--text); font-weight:500; font-size:0.95rem; }
         .nav-links a:hover, .nav-links a.active { color:var(--primary); font-weight:600; }
 
-        .container { max-width:800px; margin:60px auto; padding:0 20px; text-align:center; }
-        h2 { font-size:2.5rem; margin-bottom:20px; color:var(--text); }
-        p.lead { font-size:1.2rem; color:#64748b; margin-bottom:40px; }
+        .btn { padding:6px 14px; border-radius:8px; font-weight:600; font-size:0.9rem; cursor:pointer; transition:all 0.2s; margin-left:8px; }
+        .btn-outline { border:1.8px solid var(--primary); background:transparent; color:var(--primary); }
+        .btn-outline:hover { background:var(--primary); color:white; }
+        .btn-primary { background:var(--primary); color:white; border:none; }
+        .btn-primary:hover { opacity:0.9; }
+
+        .container { max-width:800px; margin:80px auto 100px; padding:0 20px; text-align:center; }
+        h2 { font-size:2.6rem; margin-bottom:20px; }
+        p.lead { font-size:1.22rem; color:var(--light); margin-bottom:45px; }
 
         .contact-box {
-            background:white; padding:50px; border-radius:16px;
-            box-shadow:0 10px 30px rgba(0,0,0,0.08); margin:40px 0;
+            background:white; padding:55px; border-radius:18px;
+            box-shadow:0 12px 35px rgba(0,0,0,0.09); margin:40px 0;
         }
-        .contact-box h3 { font-size:1.6rem; margin-bottom:15px; }
-        .contact-box p { font-size:1.1rem; color:#475569; margin:10px 0; }
+        .contact-box h3 { font-size:1.65rem; margin-bottom:16px; }
+        .contact-box p { font-size:1.12rem; color:#475569; margin:12px 0; line-height:1.7; }
         .contact-box a { color:var(--primary); text-decoration:none; font-weight:600; }
+        .contact-box a:hover { text-decoration:underline; }
 
-        footer { text-align:center; padding:40px; background:#1e293b; color:white; margin-top:80px; }
+        footer { text-align:center; padding:45px; background:#1e293b; color:white; }
+
+        /* Same Modal & Success Popup as other pages */
+        .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px);
+                  align-items:center; justify-content:center; z-index:9999; }
+        .modal-content { background:white; padding:40px; border-radius:16px; width:90%; max-width:420px;
+                         position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.2); }
+        .close { position:absolute; top:15px; right:20px; font-size:28px; cursor:pointer; color:#999; }
+        .close:hover { color:#000; }
+        .modal h3 { text-align:center; margin-bottom:20px; color:var(--text); }
+        .modal input { width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ddd; font-size:1rem; }
+        .modal button { width:100%; padding:13px; margin:15px 0 10px; border-radius:8px; border:none; font-weight:600; cursor:pointer; }
+        .modal button:disabled { background:#94a3b8; cursor:not-allowed; }
+        .modal button:enabled { background:var(--primary); color:white; }
+        .modal button:enabled:hover { background:var(--primary-dark); }
+
+        #successModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7);
+                       align-items:center; justify-content:center; z-index:9999; }
+        #successModal .box { background:white; padding:50px 70px; border-radius:20px; text-align:center;
+                             box-shadow:0 20px 40px rgba(0,0,0,0.2); }
     </style>
-    <style>
-    :root { --primary:#6366f1; --text:#1e293b; }
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body { font-family:'Inter',sans-serif; color:var(--text); background:#f8fafc; }
-
-    /* …baaki sab CSS jo pehle tha… */
-
-    /* ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←← */
-    .btn {
-        padding: 6px 14px;
-        border-radius: 8px;
-        font-weight: 600;
-        font-size: 0.9rem;
-        cursor: pointer;
-        transition: all 0.2s;
-        margin-left: 8px;
-    }
-    .btn-outline { border:1.8px solid var(--primary); background:transparent; color:var(--primary); }
-    .btn-outline:hover { background:var(--primary); color:white; }
-    .btn-primary { background:var(--primary); color:white; border:none; }
-    .btn-primary:hover { opacity:0.9; }
-    /* ←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←←← */
-</style>
 </head>
 <body>
 
@@ -75,7 +81,7 @@
                 <a href="index.html">Home</a>
                 <a href="#">Picks</a>
                 <a href="#">Blog</a>
-                <a href="#">About</a>
+                <a href="about.html">About</a>
                 <a href="contact.html" class="active">Contact</a>
             </div>
             <div>
@@ -93,13 +99,13 @@
             <h3>Email Me</h3>
             <p><a href="mailto:hello@anc.xyz">hello@anc.xyz</a></p>
 
-            <h3 style="margin-top:40px;">Follow Me</h3>
+            <h3 style="margin-top:45px;">Follow Me</h3>
             <p>
                 Twitter → <a href="https://twitter.com/yourhandle" target="_blank">@yourhandle</a><br>
                 Instagram → <a href="https://instagram.com/yourhandle" target="_blank">@yourhandle</a>
             </p>
 
-            <p style="margin-top:40px; color:#64748b;">
+            <p style="margin-top:45px; color:#64748b; font-size:1.05rem;">
                 I usually reply within 24–48 hours
             </p>
         </div>
@@ -109,23 +115,73 @@
         <p>© 2025 AskAbhi. Made with love for budget shoppers</p>
     </footer>
 
-    <!-- Same simple success popup -->
-    <div id="successModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);
-         align-items:center;justify-content:center;z-index:9999;">
-        <div style="background:white;padding:40px 60px;border-radius:16px;text-align:center;
-             box-shadow:0 10px 30px rgba(0,0,0,0.3);">
-            <h2 style="color:#10b981;margin-bottom:12px;">Success</h2>
-            <p style="font-size:1.2rem;">You are registered!</p>
-            <button onclick="this.parentElement.parentElement.style.display='none'"
-                    style="margin-top:20px;padding:10px 24px;background:#6366f1;color:white;
-                           border:none;border-radius:8px;cursor:pointer;">OK</button>
+    <!-- Turnstile + Login/SignUp Modal (exact same as other pages) -->
+    <div class="modal" id="authModal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h3 id="modalTitle">Login</h3>
+            <form id="authForm">
+                <input type="email" placeholder="Email address" required />
+                <input type="password" placeholder="Password" required />
+                <div class="cf-turnstile" data-sitekey="0x4AAAAAACFGEjLcBikLF231" data-callback="onTurnstileSuccess"></div>
+                <button type="submit" id="submitBtn" disabled>Login</button>
+            </form>
+            <p style="text-align:center;margin-top:20px;font-size:0.95rem;">
+                <span id="toggleText">Don't have an account? <a href="#" id="toggleLink" style="color:var(--primary);font-weight:600;">Sign Up</a></span>
+            </p>
         </div>
     </div>
 
+    <!-- Success Popup -->
+    <div id="successModal">
+        <div class="box">
+            <h2 style="color:#10b981;margin-bottom:15px;">Success!</h2>
+            <p style="font-size:1.3rem;margin:20px 0;">You are registered!</p>
+            <button onclick="document.getElementById('successModal').style.display='none'"
+                style="padding:12px 32px;background:var(--primary);color:white;border:none;border-radius:10px;cursor:pointer;font-weight:600;">
+                OK
+            </button>
+        </div>
+    </div>
+
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
-        document.getElementById('loginBtn').onclick =
-        document.getElementById('signupBtn').onclick = () => {
-            document.getElementById('successModal').style.display = 'flex';
+        const modal = document.getElementById('authModal');
+        const successModal = document.getElementById('successModal');
+        const loginBtn = document.getElementById('loginBtn');
+        const signupBtn = document.getElementById('signupBtn');
+        const closeBtn = document.querySelector('.close');
+        const modalTitle = document.getElementById('modalTitle');
+        const submitBtn = document.getElementById('submitBtn');
+        const toggleText = document.getElementById('toggleText');
+        let isLogin = true;
+
+        loginBtn.onclick = () => openModal(true);
+        signupBtn.onclick = () => openModal(false);
+        closeBtn.onclick = () => modal.style.display = 'none';
+        window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
+
+        function openModal(login) {
+            isLogin = login;
+            modal.style.display = 'flex';
+            modalTitle.textContent = isLogin ? 'Login' : 'Sign Up';
+            submitBtn.textContent = isLogin ? 'Login' : 'Create Account';
+            toggleText.innerHTML = isLogin
+                ? `Don't have an account? <a href="#" id="toggleLink">Sign Up</a>`
+                : `Already have an account? <a href="#" id="toggleLink">Login</a>`;
+            document.getElementById('toggleLink').onclick = e => { e.preventDefault(); openModal(!isLogin); };
+            if (window.turnstile) turnstile.reset();
+            submitBtn.disabled = true;
+        }
+
+        function onTurnstileSuccess() {
+            submitBtn.disabled = false;
+        }
+
+        document.getElementById('authForm').onsubmit = e => {
+            e.preventDefault();
+            modal.style.display = 'none';
+            successModal.style.display = 'flex';
         };
     </script>
 </body>
