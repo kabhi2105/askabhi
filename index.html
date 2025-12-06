@@ -7,21 +7,12 @@
     <title>AskAbhi → Budget Buying Buddy</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
     <style>
-        :root {
-            --primary: #6366f1;
-            --primary-dark: #4f46e5;
-            --text: #1e293b;
-            --text-light: #64748b;
-            --bg: #ffffff;
-            --gray: #f8fafc;
-        }
+        :root { --primary:#6366f1; --primary-dark:#4f46e5; --text:#1e293b; --light:#64748b; --bg:#ffffff; --gray:#f8fafc; }
         * { margin:0; padding:0; box-sizing:border-box; }
         body { font-family:'Inter',sans-serif; color:var(--text); background:var(--bg); line-height:1.6; }
 
-        .hero {
-            background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
-            padding:32px 20px 28px; clip-path:polygon(0 0,100% 0,100% 100%,0 96%);
-        }
+        .hero { background:linear-gradient(135deg,#6366f1,#8b5cf6); color:white; text-align:center;
+                padding:32px 20px 28px; clip-path:polygon(0 0,100% 0,100% 100%,0 96%); }
         .hero h1 { font-size:2.3rem; font-weight:700; margin-bottom:4px; }
         .hero p { font-size:1.05rem; opacity:0.95; }
 
@@ -31,15 +22,15 @@
         .nav-logo { font-weight:700; font-size:1.35rem; color:var(--primary); }
         .nav-links { display:flex; gap:24px; align-items:center; }
         .nav-links a { text-decoration:none; color:var(--text); font-weight:500; font-size:0.95rem; }
-        .nav-links a:hover { color:var(--primary); }
-        .auth-buttons { display:flex; gap:10px; }
-        .btn { padding:6px 14px; border-radius:6px; font-weight:600; font-size:0.88rem; cursor:pointer; transition:all 0.2s; }
-        .btn-outline { border:1.5px solid var(--primary); background:transparent; color:var(--primary); }
+        .nav-links a:hover, .nav-links a.active { color:var(--primary); font-weight:600; }
+
+        .btn { padding:6px 14px; border-radius:8px; font-weight:600; font-size:0.9rem; cursor:pointer; transition:all 0.2s; margin-left:8px; }
+        .btn-outline { border:1.8px solid var(--primary); background:transparent; color:var(--primary); }
         .btn-outline:hover { background:var(--primary); color:white; }
         .btn-primary { background:var(--primary); color:white; border:none; }
         .btn-primary:hover { background:var(--primary-dark); }
 
-        main { max-width:1200px; margin:0 auto; padding:50px 20px 80px; }
+        main { max-width:1200px; margin:50px auto 80px; padding:0 20px; }
         h2 { font-size:2rem; text-align:center; margin-bottom:40px; }
         .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(300px,1fr)); gap:28px; }
         .card { background:white; border-radius:12px; overflow:hidden; box-shadow:0 4px 20px rgba(0,0,0,0.08); transition:all 0.3s; }
@@ -47,30 +38,24 @@
         .card img { width:100%; height:190px; object-fit:cover; }
         .card-body { padding:18px; }
         .card h3 { font-size:1.35rem; margin-bottom:8px; }
-        .card p { color:var(--text-light); margin-bottom:14px; font-size:0.95rem; }
+        .card p { color:var(--light); margin-bottom:14px; font-size:0.95rem; }
         .card a { color:var(--primary); font-weight:600; text-decoration:none; }
-        .card a:hover { text-decoration:underline; }
 
         .about { text-align:center; padding:60px 20px; background:var(--gray); border-radius:14px; margin:70px 0; }
-
         footer { text-align:center; padding:35px 20px; background:#1e293b; color:white; font-size:0.9rem; }
 
-        /* Modal */
         .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px);
                   align-items:center; justify-content:center; z-index:9999; }
         .modal-content { background:white; padding:40px; border-radius:16px; width:90%; max-width:420px;
                          position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.2); }
         .close { position:absolute; top:15px; right:20px; font-size:28px; cursor:pointer; color:#999; }
         .close:hover { color:#000; }
-        .modal h3 { text-align:center; margin-bottom:20px; color:var(--text); }
         .modal input { width:100%; padding:12px; margin:10px 0; border-radius:8px; border:1px solid #ddd; font-size:1rem; }
         .modal button { width:100%; padding:13px; margin:15px 0 10px; border-radius:8px; border:none; font-weight:600; cursor:pointer; }
         .modal button:disabled { background:#94a3b8; cursor:not-allowed; }
         .modal button:enabled { background:var(--primary); color:white; }
         .modal button:enabled:hover { background:var(--primary-dark); }
-        #turnstile-widget { margin:20px 0; text-align:center; }
 
-        /* Success Popup */
         #successModal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.7);
                        align-items:center; justify-content:center; z-index:9999; }
         #successModal .box { background:white; padding:50px 70px; border-radius:20px; text-align:center;
@@ -88,25 +73,26 @@
         <div class="nav-container">
             <div class="nav-logo">AskAbhi</div>
             <div class="nav-links">
-                <a href="index.html">Home</a>
+                <a href="index.html" class="active">Home</a>
                 <a href="bluetooth-under-2000.html">Picks</a>
                 <a href="#">Blog</a>
                 <a href="about.html">About</a>
                 <a href="contact.html">Contact</a>
             </div>
-            <div class="auth-buttons">
+            <div>
                 <button class="btn btn-outline" id="loginBtn">Login</button>
                 <button class="btn btn-primary" id="signupBtn">Sign Up</button>
             </div>
         </div>
     </nav>
 
+    <!-- Main Content -->
     <main>
         <section class="featured">
             <h2>Featured Picks</h2>
             <div class="cards">
                 <div class="card">
-                    <img src="assets/img/speaker.jpg" alt="Best Bluetooth Speaker under 2000">
+                    <img src="assets/img/speaker.jpg" alt="Speaker">
                     <div class="card-body">
                         <h3>Best Bluetooth Speaker Under ₹2000</h3>
                         <p>Top 5 Bluetooth speakers that offer great sound and value.</p>
@@ -114,7 +100,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="assets/img/monitor.jpg" alt="Best Monitor under 10000">
+                    <img src="assets/img/monitor.jpg" alt="Monitor">
                     <div class="card-body">
                         <h3>Top Monitors Under ₹10000</h3>
                         <p>Perfect monitors for work, study, and casual gaming.</p>
@@ -122,7 +108,7 @@
                     </div>
                 </div>
                 <div class="card">
-                    <img src="assets/img/laptop.jpg" alt="Best Laptop under 40000">
+                    <img src="assets/img/laptop.jpg" alt="Laptop">
                     <div class="card-body">
                         <h3>Best Laptops Under ₹40000</h3>
                         <p>Power-packed laptops for students and professionals.</p>
@@ -145,7 +131,7 @@
         <p>© 2025 AskAbhi. Built for smart shopping under budget.</p>
     </footer>
 
-    <!-- Turnstile + Login/SignUp Modal -->
+    <!-- Login/SignUp Modal -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close">×</span>
@@ -166,7 +152,7 @@
     <div id="successModal">
         <div class="box">
             <h2 style="color:#10b981;margin-bottom:15px;">Success!</h2>
-            <p style="font-size:1.3rem;margin:20px 0;">You are registered!</p>
+            <p style="font-size:1.3rem;margin:20px 0;font-weight:600;" id="successText">You are registered!</p>
             <button onclick="document.getElementById('successModal').style.display='none'"
                 style="padding:12px 32px;background:var(--primary);color:white;border:none;border-radius:10px;cursor:pointer;font-weight:600;">
                 OK
@@ -174,7 +160,6 @@
         </div>
     </div>
 
-    <!-- Turnstile Script
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
     <script>
         const modal = document.getElementById('authModal');
@@ -184,7 +169,7 @@
         const closeBtn = document.querySelector('.close');
         const modalTitle = document.getElementById('modalTitle');
         const submitBtn = document.getElementById('submitBtn');
-        const toggleText = document.getElementById('toggleText');
+        const successText = document.getElementById('successText');
         let isLogin = true;
 
         loginBtn.onclick = () => openModal(true);
@@ -192,12 +177,14 @@
         closeBtn.onclick = () => modal.style.display = 'none';
         window.onclick = e => { if (e.target === modal) modal.style.display = 'none'; };
 
+        };
+
         function openModal(login) {
             isLogin = login;
             modal.style.display = 'flex';
             modalTitle.textContent = isLogin ? 'Login' : 'Sign Up';
             submitBtn.textContent = isLogin ? 'Login' : 'Create Account';
-            toggleText.innerHTML = isLogin
+            document.getElementById('toggleText').innerHTML = isLogin
                 ? `Don't have an account? <a href="#" id="toggleLink">Sign Up</a>`
                 : `Already have an account? <a href="#" id="toggleLink">Login</a>`;
             document.getElementById('toggleLink').onclick = e => { e.preventDefault(); openModal(!isLogin); };
@@ -211,6 +198,7 @@
 
         document.getElementById('authForm').onsubmit = e => {
             e.preventDefault();
+            successText.textContent = isLogin ? 'Successfully logged in!' : 'Registration successful!';
             modal.style.display = 'none';
             successModal.style.display = 'flex';
         };
