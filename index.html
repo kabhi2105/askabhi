@@ -26,7 +26,7 @@
             line-height: 1.6;
         }
 
-        /* Ultra-compact Hero – ab sirf 80px total */
+        /* Ultra-compact Hero */
         .hero {
             background: linear-gradient(135deg, #6366f1, #8b5cf6);
             color: white;
@@ -44,7 +44,7 @@
             opacity: 0.95;
         }
 
-        /* Super-compact Navbar – ab sirf 56px height */
+        /* Super-compact Navbar */
         .nav {
             background: white;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
@@ -102,7 +102,7 @@
         }
         .btn-primary:hover { background: var(--primary-dark); }
 
-        /* Rest of the styles (same as before, only tiny tweaks) */
+        /* Rest of the styles */
         main { max-width: 1200px; margin: 0 auto; padding: 50px 20px 80px; }
         h2 { font-size: 2rem; text-align: center; margin-bottom: 40px; }
         .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px; }
@@ -131,30 +131,22 @@
             font-size:0.9rem;
         }
 
-        /* Modal – same as before */
+        /* Modal with Turnstile */
         .modal { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6); backdrop-filter:blur(8px); align-items:center; justify-content:center; z-index:9999; }
         .modal-content { background:white; padding:35px; border-radius:14px; width:90%; max-width:400px; position:relative; animation:slideDown .4s ease; }
-        }
         @keyframes slideDown { from{opacity:0;transform:translateY(-40px)} to{opacity:1;transform:translateY(0)} }
         .close { position:absolute; top:12px; right:18px; font-size:26px; cursor:pointer; color:#aaa; }
         .close:hover { color:#000; }
         .modal input, .modal button { width:100%; padding:11px; margin:8px 0; border-radius:7px; border:1px solid #ddd; }
         .modal button { background:var(--primary); color:white; border:none; font-weight:600; cursor:pointer; }
         .modal button:hover { background:var(--primary-dark); }
-
-        @media (max-width:768px) {
-            .hero h1 { font-size: 2rem; }
-            .hero p { font-size: 1rem; }
-            }
-            .nav-links { gap:16px; }
-            .nav-links a { font-size:0.9rem; }
-            .btn { padding:5px 12px; font-size:0.85rem; }
-        }
+        .modal button:disabled { background: #ccc; cursor: not-allowed; }
+        #turnstile-widget { margin: 15px 0; }
     </style>
 </head>
 <body>
 
-    <!-- Ultra-compact Hero -->
+    <!-- Hero + Navbar (same as before) -->
     <header class="hero">
         <h1>AskAbhi</h1>
         <p>Your Budget Buying Buddy</p>
@@ -163,7 +155,6 @@
     <nav class="nav">
         <div class="nav-container">
             <div class="nav-logo">AskAbhi</div>
-            >
             <div class="nav-links">
                 <a href="index.html">Home</a>
                 <a href="bluetooth-under-2000.html">Picks</a>
@@ -178,7 +169,7 @@
         </div>
     </nav>
 
-    <!-- Main content exactly same -->
+    <!-- Main content (same) -->
     <main>
         <section class="featured">
             <h2>Featured Picks</h2>
@@ -223,7 +214,7 @@
         <p>© 2025 AskAbhi. Built for smart shopping under budget.</p>
     </footer>
 
-    <!-- Modal code same rahega -->
+    <!-- Updated Modal with Turnstile -->
     <div class="modal" id="authModal">
         <div class="modal-content">
             <span class="close">×</span>
@@ -231,6 +222,7 @@
             <form id="authForm">
                 <input type="email" placeholder="Email address" required />
                 <input type="password" placeholder="Password" required />
+                <div id="turnstile-widget" class="cf-turnstile" data-sitekey="0x4AAAAAACFGEjLcBikLF231" data-callback="turnstileCallback"></div>
                 <button type="submit" id="submitBtn">Login</button>
             </form>
             <p style="text-align:center;margin-top:15px;font-size:0.9rem;">
@@ -238,6 +230,9 @@
             </p>
         </div>
     </div>
+
+    <!-- Turnstile Script (add this before closing body) -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
     <script>
         const modal = document.getElementById('authModal');
@@ -249,6 +244,13 @@
         const toggleText = document.getElementById('toggleText');
 
         let isLogin = true;
+        let turnstileToken = null;
+
+        // Turnstile Callback (widget load hone par token capture karo)
+        function turnstileCallback(token) {
+            turnstileToken = token;
+            submitBtn.disabled = false; // Button enable kar do
+        }
 
         loginBtn.onclick = () => { modal.style.display = 'flex'; isLogin = true; updateModal(); }
         signupBtn.onclick = () => { modal.style.display = 'flex'; isLogin = false; updateModal(); }
@@ -266,12 +268,45 @@
                 isLogin = !isLogin;
                 updateModal();
             };
+            // Turnstile reset kar do toggle par
+            if (window.turnstile) {
+                window.turnstile.reset();
+            }
+            turnstileToken = null;
+            submitBtn.disabled = true; // Pehle disable
         }
 
-        document.getElementById('authForm').onsubmit = (e) => {
+        document.getElementById('authForm').onsubmit = async (e) => {
             e.preventDefault();
-            alert((isLogin ? 'Logged in' : 'Signed up') + 'successfully!');
-            modal.style.display = 'none';
+            if (!turnstileToken) {
+                alert('Please complete the Turnstile challenge!');
+                return;
+            }
+
+            // Server-side verify (demo – yahaan backend call karo)
+            const formData = new FormData(e.target);
+            formData.append('cf-turnstile-response', turnstileToken);
+
+            try {
+                // Example fetch to your backend (replace with actual endpoint)
+                const response = await fetch('/api/verify-turnstile', { // Yeh backend endpoint bana lo
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+
+                if (result.success) {
+                    alert((isLogin ? 'Logged in' : 'Signed up') + ' successfully!');
+                    modal.style.display = 'none';
+                } else {
+                    alert('Verification failed! Try again.');
+                    window.turnstile.reset(); // Reset widget
+                    turnstileToken = null;
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Something went wrong!');
+            }
         };
     </script>
 </body>
