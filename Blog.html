@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Same head section as before, no changes needed -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AskAbhi Blog - Latest reviews and insights on top tech electronic gadgets in 2025. Your budget buying buddy for smart purchases.">
+    <meta name="keywords" content="tech gadgets 2025, best electronics, gadget reviews, budget tech buys">
+    <meta name="author" content="AskAbhi">
+    <title>Blog - Latest Tech Gadgets 2025 | AskAbhi</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* Same CSS as before */
+        :root {
+            --primary: #7B2CBF;
+            --primary-dark: #5A189A;
+            --text: #333;
+            --light: #f8f9fa;
+            --gray: #6c757d;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; color: var(--text); line-height: 1.6; background: #fff; }
+        a { text-decoration: none; color: var(--primary); }
+        
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        header h1 { font-size: 3rem; font-weight: 700; }
+        header p { font-size: 1.2rem; margin-top: 0.5rem; opacity: 0.9; }
+        
+        nav {
+            background: white;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky; top: 0; z-index: 100;
+        }
+        nav .container {
+            display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;
+        }
+        nav .logo { font-size: 1.8rem; font-weight: 600; color: var(--primary); }
+        nav ul { display: flex; list-style: none; gap: 2rem; }
+        nav ul a { color: var(--text); font-weight: 500; transition: color 0.3s; }
+        nav ul a:hover { color: var(--primary); }
+        nav .auth-buttons a {
+            padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 500;
+        }
+        nav .login { border: 2px solid var(--primary); color: var(--primary); }
+        nav .signup { background: var(--primary); color: white; margin-left: 0.5rem; }
+        
+        .blog-section {
+            max-width: 1200px; margin: 4rem auto; padding: 0 5%;
+        }
+        .blog-section h2 {
+            text-align: center; font-size: 2.5rem; margin-bottom: 3rem; color: var(--primary-dark);
+        }
+        .blog-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem;
+        }
+        .blog-card {
+            background: white; border-radius: 16px; overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1); transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .blog-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.15); }
+        .blog-card img {
+            width: 100%; height: 250px; object-fit: cover;
+        }
+        .card-content {
+            padding: 1.5rem;
+        }
+        .card-content h3 {
+            font-size: 1.5rem; margin-bottom: 1rem; color: var(--primary-dark);
+        }
+        .card-content p {
+            color: var(--gray); margin-bottom: 1rem;
+        }
+        .read-more {
+            display: inline-block; background: var(--primary); color: white;
+            padding: 0.6rem 1.2rem; border-radius: 50px; font-weight: 500; transition: background 0.3s;
+        }
+        .read-more:hover { background: var(--primary-dark); }
+        
+        .newsletter {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white; padding: 4rem 5%; text-align: center; margin: 4rem 0;
+        }
+        .newsletter h2 { font-size: 2.5rem; margin-bottom: 1rem; }
+        .newsletter p { font-size: 1.1rem; margin-bottom: 2rem; opacity: 0.9; }
+        .newsletter form {
+            max-width: 600px; margin: 0 auto; display: flex; gap: 1rem;
+        }
+        .newsletter input {
+            flex: 1; padding: 1rem; border-radius: 50px; border: none; font-size: 1rem;
+        }
+        .newsletter button {
+            padding: 1rem 2rem; background: white; color: var(--primary); border: none;
+            border-radius: 50px; font-weight: 600; cursor: pointer; transition: background 0.3s;
+        }
+        .newsletter button:hover { background: #f0f0f0; }
+        
+        footer {
+            background: #333; color: white; text-align: center; padding: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            nav .container { flex-direction: column; gap: 1rem; }
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            .blog-grid { grid-template-columns: 1fr; }
+            .newsletter form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Same header and nav -->
+
+    <header>
+        <h1>AskAbhi Blog</h1>
+        <p>Latest Insights on Top Tech Gadgets – Your Budget Buying Buddy</p>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="logo">AskAbhi</div>
+            <ul>
+                <li><a href="#">Home</a></li>
+                <li><a href="#">Picks</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+            <div class="auth-buttons">
+                <a href="#" class="login">Login</a>
+                <a href="#" class="signup">Sign Up</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="blog-section">
+        <h2>Latest Top Tech Gadgets of 2025</h2>
+        <div class="blog-grid">
+            <!-- Post 1: Nintendo Switch 2 -->
+            <article class="blog-card">
+                <img src="https://variety.com/wp-content/uploads/2025/01/Nintendo_Lead.jpg?w=1000&h=667&crop=1" alt="Nintendo Switch 2 Console">
+
+<grok-card data-id="a485c7" data-type="image_card"></grok-card>
+
+                <div class="card-content">
+                    <h3>Nintendo Switch 2: The Ultimate Hybrid Console</h3>
+                    <p>2025 ka sabse bada gaming launch! Improved performance, 4K docked mode, aur new Joy-Cons ke saath yeh console holidays ka king ban gaya hai.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+            
+            <!-- Post 2: SteelSeries Arctis Nova Elite -->
+            <article class="blog-card">
+                <img src="https://images.ctfassets.net/w5r1fvmogo3f/4B9AXPPltuC3ERCvCHCAja/b73cd357e54dc34900821c5b256ebe88/arctis_nova_elite_sage_gold_pdp_img_buy_01.png?fm=webp&q=90&fit=scale&w=1920" alt="SteelSeries Arctis Nova Elite Headset">
+
+<grok-card data-id="aca1ec" data-type="image_card"></grok-card>
+
+                <div class="card-content">
+                    <h3>SteelSeries Arctis Nova Elite: Best Gaming Headset 2025</h3>
+                    <p>Audiophile-grade sound, premium build aur active noise cancellation – gaming aur daily use dono ke liye perfect.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+            
+            <!-- Post 3: KEF Muo Gen 2 -->
+            <article class="blog-card">
+                <img src="https://imageio.forbes.com/specials-images/imageserve/68d2abd8808c4e244ea3cb6f/KEF-Muo-OrangeMoon/0x0.jpg?crop=1200%2C900%2Cx0%2Cy213%2Csafe&height=533&width=480&fit=bounds" alt="KEF Muo Gen 2 Speaker">
+
+<grok-card data-id="89ded1" data-type="image_card"></grok-card>
+
+                <div class="card-content">
+                    <h3>KEF Muo 2nd Generation: Premium Portable Bluetooth Speaker</h3>
+                    <p>Sculptural design aur incredible sound quality – 2025 ka best portable speaker for audiophiles.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+            
+            <!-- Post 4: Amazfit Active 2 -->
+            <article class="blog-card">
+                <img src="https://www.cnet.com/a/img/resize/62583c4a20162f62b4cc5f44df63819d3b51a162/hub/2025/01/03/f740b26c-82ce-4052-911d-3e297b9b3707/image-14.png?auto=webp&fit=crop&height=675&width=1200" alt="Amazfit Active 2 Smartwatch">
+
+<grok-card data-id="2767e0" data-type="image_card"></grok-card>
+
+                <div class="card-content">
+                    <h3>Amazfit Active 2: Best Budget Smartwatch Under $100</h3>
+                    <p>Offline maps, bright AMOLED display aur amazing battery – value king of 2025!</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+            
+            <!-- Post 5: Sony WH-1000XM6 -->
+            <article class="blog-card">
+                <img src="https://variety.com/wp-content/uploads/2025/05/Sony-WH-1000XM6-Noise-Canceling-Headphones-Featured.jpg?w=1360&h=906&crop=1" alt="Sony WH-1000XM6 Headphones">
+
+<grok-card data-id="a54a12" data-type="image_card"></grok-card>
+
+                <div class="card-content">
+                    <h3>Sony WH-1000XM6: Top Noise-Cancelling Headphones</h3>
+                    <p>Improved bass, clarity aur industry-leading ANC – must-have for travelers.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+            
+            <!-- Post 6: CES 2025 Smart Home -->
+            <article class="blog-card">
+                <img src="https://sm.pcmag.com/pcmag_uk/news/s/sock-sling/sock-slinging-robots-and-sci-fi-planters-the-best-smart-home_bw5a.jpg" alt="Top Smart Home Gadgets CES 2025">
+
+<grok-card data-id="adb176" data-type="image_card"></grok-card>
+
+                <div class="card-content">
+                    <h3>Top Smart Home Gadgets from CES 2025</h3>
+                    <p>Robot maids, fog gardens aur AI-powered devices jo ghar ko future-proof banayenge.</p>
+                    <a href="#" class="read-more">Read More →</a>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <!-- Same newsletter and footer -->
+
+    <section class="newsletter">
+        <h2>Subscribe to Our Newsletter</h2>
+        <p>Latest gadget reviews, budget tips aur exclusive deals direct apke inbox mein!</p>
+        <form>
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit">Subscribe Now</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 AskAbhi. All rights reserved. Your Budget Buying Buddy.</p>
+    </footer>
+</body>
+</html>
